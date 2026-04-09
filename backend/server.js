@@ -10,25 +10,25 @@ dotenv.config();
 
 const app = express();
 
-// Middleware
+
 app.use(cors({
   origin: ["http://localhost:5173", "http://localhost:5174"],
   credentials: true
 }));
-app.use(express.json()); // JSON body parse karne ke liye
-
-// server.js / app.js
-app.use("/uploads", express.static("uploads"));
+app.use(express.json()); 
 
 
+// app.use("/uploads", express.static("uploads"));
 
-// Routes
+
+
+
 app.use("/api/orders", orderRoutes);
 
 app.use("/api/products", productRoutes);
 
 
-// Connect DB
+
 connectDB();
 
 

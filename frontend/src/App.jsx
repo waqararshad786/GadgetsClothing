@@ -9,7 +9,6 @@ import Navbar from "./components/Navbar.jsx";
 import ProductDetails from "./pages/ProductDetails.jsx";
 import AllProducts from "./pages/AllProducts.jsx";
 import Footer from "./components/Footer.jsx";
-import FeaturesAndSubscribe from "./components/FeaturesAndSubscribes.jsx";
 import ScrollToTop from "./components/ScrollToTop.jsx";
 import { CartProvider } from "./context/CartContext.jsx";
 import CartPage from "./pages/CartPage.jsx";
@@ -17,6 +16,8 @@ import CheckoutPage from "./pages/CheckoutPage.jsx";
 import OrderPage from "./pages/OrderPage.jsx";
 import PaymentPage from "./pages/PaymentPage.jsx";
 import ShowProducts from "./pages/showProducts.jsx";
+import PrivacyPolicy from "./components/PrivacyPolicy.jsx";
+import ReturnPolicy from "./components/ReturnPolicy.jsx";
 
 
 
@@ -39,7 +40,8 @@ function App() {
         <Route path="/payment" element={<PaymentPage/>} />
         <Route path="/order" element={<OrderPage/>} />
         <Route path="/show-products" element={<ShowProducts/>} />
-        
+        <Route path="/privacy-policy" element={<PrivacyPolicy/>} />
+        <Route path="/return-policy" element={<ReturnPolicy/>} />
       </Routes>
       <Footer />
     </CartProvider>

@@ -15,7 +15,7 @@ const CheckoutPage = () => {
       setOrderPlaced(true);
     } else if (paymentMethod === "online") {
       alert("Online Payment Form Placeholder (Implement payment gateway here)");
-      // You can integrate Stripe / Razorpay etc.
+      // You can integrate Stripe / Razorpay etc.a
     }
   };
 

@@ -1,87 +1,96 @@
 import Order from "../models/orderModel.js";
 
-// ================================
-// CREATE NEW ORDER
-// ================================
+// CREATE ORDER (COD ONLY)
 export const createOrder = async (req, res) => {
   try {
-    const { name, phone, address, area, postalCode, emergencyNumber, items, totalAmount, paymentMethod } = req.body;
+    const {
+      name,
+      phone,
+      address,
+      area,
+      postalCode,
+      emergencyNumber,
+      items,
+      totalAmount,
+    } = req.body;
 
-    if (!name || !phone || !address || !area || !postalCode || !items || !totalAmount || !paymentMethod) {
-      return res.status(400).json({ success: false, message: "All required fields must be provided." });
+    if (!name || !phone || !address || !area || !postalCode || !items || !totalAmount) {
+      return res.status(400).json({
+        success: false,
+        message: "All fields required",
+      });
     }
 
     const fullAddress = `${address}, ${area}, ${postalCode}`;
-
-    // Set status based on payment method
-    const status = paymentMethod === "ONLINE" ? "paid" : "pending";
 
     const order = await Order.create({
       name,
       phone,
       address: fullAddress,
-      emergencyNumber: emergencyNumber || null,
+      emergencyNumber,
       items,
       totalAmount,
-      paymentMethod,
-      status, // <-- use conditional status
+      paymentMethod: "COD",
+      status: "pending",
     });
 
     res.status(201).json({ success: true, order });
+
   } catch (error) {
-    console.error("Order creation error:", error.message);
+    console.error(error);
     res.status(500).json({ success: false, message: error.message });
   }
 };
 
-
-// ================================
-// GET ALL ORDERS (ADMIN)
-// ================================
+// GET ALL ORDERS
 export const getAllOrders = async (req, res) => {
   try {
     const orders = await Order.find().sort({ createdAt: -1 });
     res.json({ success: true, orders });
   } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
+    res.status(500).json({ message: error.message });
   }
 };
 
-// ================================
-// GET USER ORDERS
-// ================================
-export const getUserOrders = async (req, res) => {
-  try {
-    const { userId } = req.params;
-    const orders = await Order.find({ userId }).sort({ createdAt: -1 });
-    res.json({ success: true, orders });
-  } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
-  }
-};
-
-// ================================
-// UPDATE ORDER STATUS (ADMIN)
-// ================================
+// UPDATE ORDER STATUS (pending, delivered, cancelled)
 export const updateOrderStatus = async (req, res) => {
   try {
     const { id } = req.params;
     const { status } = req.body;
-    const order = await Order.findByIdAndUpdate(id, { status }, { new: true });
+
+    // Validate status
+    if (!["pending", "paid", "cancelled"].includes(status)) {
+      return res.status(400).json({ 
+        success: false, 
+        message: "Invalid status. Allowed: pending, paid, cancelled" 
+      });
+    }
+
+    const order = await Order.findByIdAndUpdate(
+      id,
+      { status: status },
+      { new: true }
+    );
+
+    if (!order) {
+      return res.status(404).json({ success: false, message: "Order not found" });
+    }
+
     res.json({ success: true, order });
   } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
+    res.status(500).json({ message: error.message });
   }
 };
 
-
+// GET SINGLE ORDER
 export const getOrderById = async (req, res) => {
   try {
-    const { orderId } = req.params;
-    const order = await Order.findById(orderId);
-    if (!order) return res.status(404).json({ success: false, message: "Order not found" });
+    const order = await Order.findById(req.params.orderId);
+    if (!order) {
+      return res.status(404).json({ success: false, message: "Order not found" });
+    }
     res.json({ success: true, order });
   } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
+    res.status(500).json({ message: error.message });
   }
 };

@@ -1,6 +1,7 @@
 import React from "react";
 import { assets } from "../assets/assets";
 import EmailForm from "../components/EmailForm";
+import FeaturesAndSubscribe from "../components/FeaturesAndSubscribes";
 
 const About = () => {
   return (
@@ -26,7 +27,7 @@ const About = () => {
         <div className="w-full md:w-1/2 text-gray-700 text-sm sm:text-base leading-relaxed flex flex-col justify-center">
           <p className="mb-4">
             Welcome to{" "}
-            <span className="font-semibold text-pink-600">Trendify</span>, where
+            <span className="font-semibold text-pink-600">Ai-Clothing</span>, where
             style meets quality. Our mission is to bring you the latest fashion
             trends and must-have items, all curated with an eye for quality and
             design. We believe everyone deserves to express themselves through
@@ -34,7 +35,7 @@ const About = () => {
           </p>
 
           <p className="mb-6">
-            At <span className="font-semibold text-pink-600">Trendify</span>, we
+            At <span className="font-semibold text-pink-600">Ai-Clothing</span>, we
             prioritize your satisfaction. From browsing our site to receiving
             your order, we aim to provide a seamless shopping experience. Our
             team constantly explores new trends, ensuring you have access to the
@@ -63,7 +64,7 @@ const About = () => {
               Our vision is to be a global fashion leader, known for
               cutting-edge style and quality. We aim to inspire confidence and
               creativity, making{" "}
-              <span className="font-semibold text-pink-600">Trendify</span> the
+              <span className="font-semibold text-pink-600">Ai-Clothing</span> the
               go-to choice for individual expression.
             </p>
           </div>
@@ -79,7 +80,7 @@ const About = () => {
               Quality Assurance
             </h2>
             <p className="text-gray-600 text-sm sm:text-base leading-relaxed">
-              At <span className="font-semibold text-pink-600">Trendify</span>,
+              At <span className="font-semibold text-pink-600">Ai-Clothing</span>,
               quality comes first. Every product is carefully chosen and
               inspected to meet our high standards. Shop with confidence,
               knowing we ensure excellence in every detail.
@@ -104,7 +105,7 @@ const About = () => {
               Exceptional Customer Service
             </h2>
             <p className="text-gray-600 text-sm sm:text-base leading-relaxed">
-              At <span className="font-semibold text-pink-600">Trendify</span>,
+              At <span className="font-semibold text-pink-600">Ai-Clothing</span>,
               exceptional service is our promise. Our dedicated support team is
               here to assist you with any questions or concerns, ensuring a
               smooth and satisfying shopping experience.
@@ -114,7 +115,8 @@ const About = () => {
       </div>
     </div>
 
-     <EmailForm/>
+     {/* <EmailForm/> */}
+     <FeaturesAndSubscribe/>
 </div>
    
   );

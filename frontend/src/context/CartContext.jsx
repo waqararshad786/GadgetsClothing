@@ -7,14 +7,10 @@ export const CartProvider = ({ children }) => {
   const [orderDetails, setOrderDetails] = useState(null);
 
   const addToCart = (product, size = "M", quantity = 1) => {
-    // Ensure image array has full URLs
+    // ✅ FIX: Direct images use karo (Cloudinary already full URL deta hai)
     const productWithImages = {
       ...product,
-      image: product.images
-        ? product.images.map((img) =>
-            img.startsWith("http") ? img : `http://localhost:5000${img}`
-          )
-        : product.image || [],
+      image: product.images || [], // ✅ simple and correct
     };
 
     const existing = cartItems.find(
@@ -30,12 +26,19 @@ export const CartProvider = ({ children }) => {
         )
       );
     } else {
-      setCartItems([...cartItems, { ...productWithImages, size, quantity }]);
+      setCartItems([
+        ...cartItems,
+        { ...productWithImages, size, quantity },
+      ]);
     }
   };
 
   const removeFromCart = (id, size) => {
-    setCartItems(cartItems.filter((item) => !(item._id === id && item.size === size)));
+    setCartItems(
+      cartItems.filter(
+        (item) => !(item._id === id && item.size === size)
+      )
+    );
   };
 
   const clearCart = () => setCartItems([]);

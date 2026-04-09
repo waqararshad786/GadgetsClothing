@@ -18,7 +18,7 @@ const ProductDetails = () => {
     const prod = assetProducts.find((p) => p._id === id);
     if (prod) {
       setProduct(prod);
-      if (prod.image && prod.image.length > 0) setMainImage(prod.image[0]); // ✅ direct asset
+      if (prod.image && prod.image.length > 0) setMainImage(prod.image[0]);
     }
   }, [id]);
 
@@ -29,12 +29,12 @@ const ProductDetails = () => {
   const nextImage = () => {
     const newIndex = (index + 1) % imagesArray.length;
     setIndex(newIndex);
-    setMainImage(imagesArray[newIndex]); // ✅ direct asset
+    setMainImage(imagesArray[newIndex]);
   };
   const prevImage = () => {
     const newIndex = (index - 1 + imagesArray.length) % imagesArray.length;
     setIndex(newIndex);
-    setMainImage(imagesArray[newIndex]); // ✅ direct asset
+    setMainImage(imagesArray[newIndex]);
   };
 
   const handleAddToCart = () => {
@@ -49,7 +49,7 @@ const ProductDetails = () => {
           {imagesArray?.map((img, i) => (
             <img
               key={i}
-              src={img} // ✅ direct asset
+              src={img}
               onClick={() => { setMainImage(img); setIndex(i); }}
               alt=""
               className={`w-20 h-20 sm:w-24 sm:h-24 object-cover rounded-lg cursor-pointer border ${
@@ -61,7 +61,7 @@ const ProductDetails = () => {
 
         <div className="flex-1 relative flex justify-center items-center order-1 lg:order-2">
           <img
-            src={mainImage} // ✅ direct asset
+            src={mainImage}
             alt={product.name}
             className="rounded-xl w-full max-h-[500px] sm:max-h-[600px] object-contain bg-white"
           />
@@ -71,7 +71,7 @@ const ProductDetails = () => {
 
         <div className="flex-1 flex flex-col justify-center order-3 text-center lg:text-left">
           <h1 className="text-2xl sm:text-3xl font-semibold mb-2">{product.name}</h1>
-          <p className="text-lg sm:text-xl font-bold mb-4 text-gray-900">${product.price}</p>
+          <p className="text-lg sm:text-xl font-bold mb-4 text-gray-900">₹{product.price}</p>
           <p className="text-gray-700 text-sm sm:text-base mb-6">{product.description || "No description available."}</p>
 
           <div className="flex gap-2 mb-4 justify-center lg:justify-start">
