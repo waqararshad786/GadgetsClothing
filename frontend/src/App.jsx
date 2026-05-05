@@ -15,16 +15,13 @@ import CartPage from "./pages/CartPage.jsx";
 import CheckoutPage from "./pages/CheckoutPage.jsx";
 import OrderPage from "./pages/OrderPage.jsx";
 import PaymentPage from "./pages/PaymentPage.jsx";
-import ShowProducts from "./pages/showProducts.jsx";
+import ShowProducts from "./pages/ShowProducts.jsx";
 import PrivacyPolicy from "./components/PrivacyPolicy.jsx";
 import ReturnPolicy from "./components/ReturnPolicy.jsx";
 
-
-
 function App() {
   return (
-
-      <CartProvider>
+    <CartProvider>
       <ScrollToTop />
       <Navbar />
       <Routes>
@@ -37,15 +34,14 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/payment" element={<PaymentPage/>} />
-        <Route path="/order" element={<OrderPage/>} />
-        <Route path="/show-products" element={<ShowProducts/>} />
-        <Route path="/privacy-policy" element={<PrivacyPolicy/>} />
-        <Route path="/return-policy" element={<ReturnPolicy/>} />
+        <Route path="/payment" element={<PaymentPage />} />
+        <Route path="/order" element={<OrderPage />} />
+        <Route path="/show-products" element={<ShowProducts />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/return-policy" element={<ReturnPolicy />} />
       </Routes>
       <Footer />
     </CartProvider>
-
   );
 }
 
