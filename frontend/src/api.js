@@ -1,2 +1,3 @@
 // src/api.js
-export const API_URL = "http://localhost:5000/api"; // backend ka base url thats apis.js
+// Production URL (Render Backend)
+export const API_URL = "https://gadgetsclothing-2.onrender.com/api";
