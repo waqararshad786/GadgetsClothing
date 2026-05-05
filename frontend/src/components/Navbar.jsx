@@ -1,13 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { UserButton, useUser } from "@clerk/clerk-react";
 import { ShoppingCart, Menu, X, Home, Grid, Info, Phone, Package } from "lucide-react";
 import { useCart } from "../context/CartContext.jsx";
 
 const Navbar = () => {
   const { cartItems } = useCart();
   const [open, setOpen] = useState(false);
-  const { isSignedIn } = useUser();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -56,7 +54,7 @@ const Navbar = () => {
               ))}
             </div>
 
-            {/* Desktop - Cart & Login */}
+            {/* Desktop - Cart Only (No Admin Button) */}
             <div className="hidden md:flex items-center gap-4">
               <button onClick={() => navigate("/cart")} className="relative p-2">
                 <ShoppingCart size={22} />
@@ -66,13 +64,6 @@ const Navbar = () => {
                   </span>
                 )}
               </button>
-              {isSignedIn ? (
-                <UserButton afterSignOutUrl="/" />
-              ) : (
-                <Link to="/login" className="px-4 py-2 bg-blue-600 text-white rounded-full">
-                  Login
-                </Link>
-              )}
             </div>
 
             {/* ========== MOBILE ========== */}
@@ -87,7 +78,7 @@ const Navbar = () => {
                 )}
               </button>
 
-              {/* 3 Lines */}
+              {/* Menu Button */}
               <button onClick={() => setOpen(!open)} className="p-2">
                 {open ? <X size={24} /> : <Menu size={24} />}
               </button>
@@ -112,26 +103,11 @@ const Navbar = () => {
                   {link.label}
                 </Link>
               ))}
-              <div className="border-t my-3"></div>
-              {isSignedIn ? (
-                <div className="flex items-center justify-between px-4 py-3">
-                  <span>My Account</span>
-                  <UserButton afterSignOutUrl="/" />
-                </div>
-              ) : (
-                <Link
-                  to="/login"
-                  onClick={() => setOpen(false)}
-                  className="block text-center px-4 py-3 bg-blue-600 text-white rounded-xl"
-                >
-                  Login / Sign Up
-                </Link>
-              )}
+              {/* Removed Admin Panel button from mobile menu as well */}
             </div>
           </div>
         )}
       </nav>
-
       <div className="h-16"></div>
     </>
   );

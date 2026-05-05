@@ -1,9 +1,14 @@
 import React, { useState } from "react";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
 
 const Topbar = () => {
   const { logout } = useAuth();
   const [showDropdown, setShowDropdown] = useState(false);
+
+  const handleLogout = () => {
+    logout();
+    window.location.href = "/admin";
+  };
 
   return (
     <div className="w-full bg-white shadow-md sticky top-0 z-40">
@@ -56,7 +61,7 @@ const Topbar = () => {
                   </button>
                   <hr className="my-1 border-gray-100" />
                   <button
-                    onClick={logout}
+                    onClick={handleLogout}
                     className="w-full px-4 py-2 text-left text-sm text-red-600 hover:bg-red-50 flex items-center gap-2"
                   >
                     <span>🚪</span> Logout

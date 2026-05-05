@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { API_URL } from "../api.js";
-import Topbar from "../components/Topbar.jsx";
-import Sidebar from "../components/Sidebar.jsx";
+import { API_URL } from "../../api.js";
+import Topbar from "../../components/admin/Topbar.jsx";
+import Sidebar from "../../components/admin/Sidebar.jsx";
 
 const OrderDetails = () => {
   const { id } = useParams();
@@ -68,7 +68,7 @@ const OrderDetails = () => {
             <div className="text-center bg-white rounded-xl p-6 shadow-lg max-w-md">
               <div className="text-5xl mb-3">🔍</div>
               <p className="text-red-500 font-semibold">Order not found.</p>
-              <button onClick={() => navigate("/orders")} className="mt-3 px-3 py-1.5 bg-blue-500 text-white text-sm rounded-lg hover:bg-blue-600">
+              <button onClick={() => navigate("/admin/orders")} className="mt-3 px-3 py-1.5 bg-blue-500 text-white text-sm rounded-lg hover:bg-blue-600">
                 Back to Orders
               </button>
             </div>
@@ -97,19 +97,16 @@ const OrderDetails = () => {
         <div className="flex-1 overflow-auto p-4">
           <div className="max-w-4xl mx-auto">
             
-            {/* Back Button */}
-            <button onClick={() => navigate("/orders")} className="mb-3 flex items-center gap-1 text-sm text-gray-600 hover:text-blue-600">
+            <button onClick={() => navigate("/admin/orders")} className="mb-3 flex items-center gap-1 text-sm text-gray-600 hover:text-blue-600">
               <span>←</span> Back to Orders
             </button>
 
-            {/* Refresh Button */}
             <div className="mb-3 flex justify-end">
               <button onClick={fetchOrder} className="px-2 py-1 bg-gray-500 text-white text-xs rounded-lg hover:bg-gray-600 flex items-center gap-1">
                 🔄 Refresh
               </button>
             </div>
 
-            {/* Order Header */}
             <div className="bg-white rounded-xl shadow-lg overflow-hidden mb-4">
               <div className="bg-gradient-to-r from-blue-600 to-purple-600 px-4 py-3">
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
@@ -125,7 +122,6 @@ const OrderDetails = () => {
               </div>
             </div>
 
-            {/* Status Update Buttons */}
             <div className="bg-white rounded-xl shadow-md overflow-hidden mb-4">
               <div className="px-4 py-3">
                 <h3 className="font-semibold text-gray-800 text-sm mb-2">Update Order Status</h3>
@@ -140,14 +136,10 @@ const OrderDetails = () => {
                     {updating ? "Updating..." : "Cancel Order"}
                   </button>
                 </div>
-                <p className="text-xs text-gray-500 mt-2">Note: After updating, click Refresh on Orders page to see changes</p>
               </div>
             </div>
 
-            {/* Order Info Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-              
-              {/* Customer Information */}
               <div className="bg-white rounded-xl shadow-md overflow-hidden">
                 <div className="bg-gradient-to-r from-blue-500 to-cyan-500 px-4 py-2">
                   <h2 className="text-white font-semibold text-sm flex items-center gap-1">
@@ -176,19 +168,9 @@ const OrderDetails = () => {
                       <p className="font-medium text-gray-800 text-sm">{order.address}</p>
                     </div>
                   </div>
-                  {order.emergencyNumber && (
-                    <div className="flex items-start gap-2">
-                      <span className="text-gray-400 text-sm">🚨</span>
-                      <div>
-                        <p className="text-xs text-gray-500">Emergency Number</p>
-                        <p className="font-medium text-gray-800 text-sm">{order.emergencyNumber}</p>
-                      </div>
-                    </div>
-                  )}
                 </div>
               </div>
 
-              {/* Payment Information */}
               <div className="bg-white rounded-xl shadow-md overflow-hidden">
                 <div className="bg-gradient-to-r from-purple-500 to-pink-500 px-4 py-2">
                   <h2 className="text-white font-semibold text-sm flex items-center gap-1">
@@ -227,7 +209,6 @@ const OrderDetails = () => {
               </div>
             </div>
 
-            {/* Ordered Items */}
             <div className="bg-white rounded-xl shadow-md overflow-hidden">
               <div className="bg-gradient-to-r from-gray-800 to-gray-900 px-4 py-2">
                 <h2 className="text-white font-semibold text-sm flex items-center gap-1">
@@ -251,13 +232,6 @@ const OrderDetails = () => {
                       <tr key={index} className="hover:bg-gray-50">
                         <td className="px-3 py-2">
                           <div className="flex items-center gap-2">
-                            {item.image ? (
-                              <img src={item.image} alt={item.name} className="w-10 h-10 object-cover rounded" />
-                            ) : (
-                              <div className="w-10 h-10 bg-gray-200 rounded flex items-center justify-center">
-                                <span className="text-lg">👕</span>
-                              </div>
-                            )}
                             <span className="font-medium text-gray-800 text-sm">{item.name}</span>
                           </div>
                         </td>

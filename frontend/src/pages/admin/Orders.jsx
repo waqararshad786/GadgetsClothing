@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import Sidebar from "../components/Sidebar";
-import Topbar from "../components/Topbar";
-import { API_URL } from "../api.js";
+import Sidebar from "../../components/admin/Sidebar.jsx";
+import Topbar from "../../components/admin/Topbar.jsx";
+import { API_URL } from "../../api.js";
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
@@ -83,20 +83,17 @@ const Orders = () => {
         <Topbar />
         
         <div className="flex-1 overflow-auto p-4">
-          {/* Header */}
           <div className="mb-4">
             <h1 className="text-xl font-bold text-gray-800">Orders</h1>
             <p className="text-gray-500 text-sm">Manage and track all customer orders</p>
           </div>
 
-          {/* Refresh Button */}
           <div className="mb-3 flex justify-end">
             <button onClick={fetchOrders} className="px-3 py-1.5 bg-blue-500 text-white text-sm rounded-lg hover:bg-blue-600 transition flex items-center gap-1">
               🔄 Refresh Orders
             </button>
           </div>
 
-          {/* Filters */}
           <div className="bg-white rounded-xl shadow-sm p-3 mb-4">
             <div className="flex flex-col md:flex-row gap-3">
               <div className="flex-1">
@@ -127,7 +124,6 @@ const Orders = () => {
             </div>
           </div>
 
-          {/* Orders Table */}
           {filteredOrders.length === 0 ? (
             <div className="bg-white rounded-xl shadow-sm p-8 text-center">
               <div className="text-4xl mb-3">📦</div>
@@ -176,7 +172,7 @@ const Orders = () => {
                           </td>
                           <td className="px-4 py-3">
                             <div className="flex items-center gap-1.5 flex-wrap">
-                              <button onClick={() => navigate(`/orders/${order._id}`)} className="px-2 py-1 bg-blue-500 text-white text-xs rounded-lg hover:bg-blue-600 transition">
+                              <button onClick={() => navigate(`/admin/orders/${order._id}`)} className="px-2 py-1 bg-blue-500 text-white text-xs rounded-lg hover:bg-blue-600 transition">
                                 View Details
                               </button>
                               {order.status === "pending" && (
@@ -198,7 +194,6 @@ const Orders = () => {
                 </table>
               </div>
               
-              {/* Table Footer */}
               <div className="px-4 py-2 bg-gray-50 border-t border-gray-200">
                 <div className="flex justify-between items-center text-xs text-gray-600">
                   <span>Showing {filteredOrders.length} of {orders.length} orders</span>

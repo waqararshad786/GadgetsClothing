@@ -7,10 +7,9 @@ export const CartProvider = ({ children }) => {
   const [orderDetails, setOrderDetails] = useState(null);
 
   const addToCart = (product, size = "M", quantity = 1) => {
-    // ✅ FIX: Direct images use karo (Cloudinary already full URL deta hai)
     const productWithImages = {
       ...product,
-      image: product.images || [], // ✅ simple and correct
+      image: product.images || [],
     };
 
     const existing = cartItems.find(
@@ -59,4 +58,10 @@ export const CartProvider = ({ children }) => {
   );
 };
 
-export const useCart = () => useContext(CartContext);
+export const useCart = () => {
+  const context = useContext(CartContext);
+  if (!context) {
+    throw new Error("useCart must be used within a CartProvider");
+  }
+  return context;
+};

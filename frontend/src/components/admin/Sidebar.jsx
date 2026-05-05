@@ -1,20 +1,27 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { HiMenu, HiX } from "react-icons/hi";
+import { useAuth } from "../../context/AuthContext";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const { logout } = useAuth();
 
   const isActive = (path) => {
     return location.pathname === path;
   };
 
   const menuItems = [
-    { path: "/dashboard", name: "Dashboard", icon: "📊" },
-    { path: "/orders", name: "Orders", icon: "📦" },
-    { path: "/products", name: "Products", icon: "👕" },
+    { path: "/admin/dashboard", name: "Dashboard", icon: "📊" },
+    { path: "/admin/orders", name: "Orders", icon: "📦" },
+    { path: "/admin/products", name: "Products", icon: "👕" },
   ];
+
+  const handleLogout = () => {
+    logout();
+    window.location.href = "/admin";
+  };
 
   return (
     <>
@@ -96,10 +103,7 @@ const Sidebar = () => {
         {/* Bottom Section */}
         <div className="p-4 border-t border-gray-700">
           <button 
-            onClick={() => {
-              localStorage.removeItem("token");
-              window.location.href = "/";
-            }}
+            onClick={handleLogout}
             className="flex items-center gap-3 px-4 py-3 w-full rounded-xl text-gray-300 hover:bg-red-500/20 hover:text-red-400 transition-all duration-300"
           >
             <span className="text-xl">🚪</span>
@@ -114,7 +118,7 @@ const Sidebar = () => {
               </div>
               <div className="flex-1">
                 <p className="text-sm font-semibold text-white">Admin User</p>
-                <p className="text-xs text-gray-400">gadgetsclothing934@gmail.com</p>
+                <p className="text-xs text-gray-400">waqar</p>
               </div>
             </div>
           </div>

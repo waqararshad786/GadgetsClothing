@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import Sidebar from "../components/Sidebar";
-import Topbar from "../components/Topbar";
+import Sidebar from "../../components/admin/Sidebar.jsx";
+import Topbar from "../../components/admin/Topbar.jsx";
 import axios from "axios";
-import { API_URL } from "../api.js";
+import { API_URL } from "../../api.js";
 
 const Dashboard = () => {
   const [orders, setOrders] = useState([]);
@@ -45,9 +45,7 @@ const Dashboard = () => {
       const response = await axios.put(`${API_URL}/orders/update/${id}`, { status: newStatus });
       
       if (response.status === 200) {
-        // Update local state immediately
         setOrders(prev => prev.map(o => o._id === id ? { ...o, status: newStatus } : o));
-        
         const statusText = newStatus === "paid" ? "Delivered" : newStatus === "cancelled" ? "Cancelled" : "Pending";
         alert(`✅ Order ${statusText} successfully!`);
       }
@@ -79,13 +77,11 @@ const Dashboard = () => {
       <div className="flex-1 flex flex-col overflow-hidden">
         <Topbar />
         <div className="flex-1 overflow-auto p-4">
-          {/* Welcome Section */}
           <div className="mb-6">
             <h1 className="text-2xl font-bold text-gray-800">Dashboard Overview</h1>
             <p className="text-gray-500 text-sm">Welcome back! Here's what's happening with your store today.</p>
           </div>
 
-          {/* Stats Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
             {stats.map((stat, index) => (
               <div key={index} className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-200 overflow-hidden">
@@ -97,27 +93,19 @@ const Dashboard = () => {
                     <span className="text-xs text-gray-400">This month</span>
                   </div>
                   <p className="text-gray-500 text-xs mb-1">{stat.title}</p>
-                  <p className={`text-xl font-bold ${
-                    stat.title === "Pending Orders" ? "text-yellow-600" :
-                    stat.title === "Delivered Orders" ? "text-green-600" :
-                    stat.title === "Cancelled Orders" ? "text-red-600" :
-                    stat.title === "Total Revenue" ? "text-purple-600" : "text-gray-800"
-                  }`}>
-                    {stat.value}
-                  </p>
+                  <p className="text-xl font-bold text-gray-800">{stat.value}</p>
                 </div>
                 <div className={`h-0.5 bg-gradient-to-r ${stat.color}`}></div>
               </div>
             ))}
           </div>
 
-          {/* Recent Orders Table */}
           <div className="bg-white rounded-xl shadow-md overflow-hidden">
             <div className="px-4 py-3 border-b border-gray-200">
               <div className="flex items-center justify-between">
                 <h2 className="text-md font-semibold text-gray-800">Recent Orders</h2>
                 <button 
-                  onClick={() => window.location.href = "/orders"} 
+                  onClick={() => window.location.href = "/admin/orders"} 
                   className="text-xs text-blue-600 hover:text-blue-700"
                 >
                   View All Orders →
@@ -160,15 +148,12 @@ const Dashboard = () => {
                         </td>
                         <td className="px-4 py-3">
                           <div className="flex items-center gap-1.5">
-                            {/* View Button */}
                             <button 
-                              onClick={() => window.location.href = `/orders/${order._id}`}
+                              onClick={() => window.location.href = `/admin/orders/${order._id}`}
                               className="px-2 py-1 bg-blue-500 text-white text-xs rounded hover:bg-blue-600"
                             >
                               View
                             </button>
-
-                            {/* Deliver Button - Only for pending orders */}
                             {order.status === "pending" && (
                               <button 
                                 onClick={() => updateOrderStatus(order._id, "paid")}
@@ -178,8 +163,6 @@ const Dashboard = () => {
                                 {updatingId === order._id ? "..." : "Deliver"}
                               </button>
                             )}
-
-                            {/* Cancel Button - For pending and delivered orders */}
                             {(order.status === "pending" || order.status === "paid") && (
                               <button 
                                 onClick={() => updateOrderStatus(order._id, "cancelled")}
@@ -189,44 +172,13 @@ const Dashboard = () => {
                                 {updatingId === order._id ? "..." : "Cancel"}
                               </button>
                             )}
-
-                            {/* Restore Button - For cancelled orders */}
-                            {order.status === "cancelled" && (
-                              <button 
-                                onClick={() => updateOrderStatus(order._id, "pending")}
-                                disabled={updatingId === order._id}
-                                className="px-2 py-1 bg-yellow-500 text-white text-xs rounded hover:bg-yellow-600 disabled:opacity-50"
-                              >
-                                {updatingId === order._id ? "..." : "Restore"}
-                              </button>
-                            )}
                           </div>
                         </td>
                       </tr>
                     );
                   })}
-                  {orders.length === 0 && (
-                    <tr>
-                      <td colSpan="5" className="px-4 py-8 text-center text-gray-500 text-sm">
-                        No orders found
-                      </td>
-                    </tr>
-                  )}
                 </tbody>
               </table>
-            </div>
-            
-            {/* Table Footer */}
-            <div className="px-4 py-2 bg-gray-50 border-t border-gray-200">
-              <div className="flex justify-between items-center text-xs text-gray-600">
-                <span>Showing last {Math.min(orders.length, 10)} of {orders.length} orders</span>
-                <button 
-                  onClick={fetchOrders}
-                  className="text-blue-600 hover:text-blue-700"
-                >
-                  🔄 Refresh
-                </button>
-              </div>
             </div>
           </div>
         </div>
